@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GS12 - กรอกแบบฟอร์ม</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+    <div class="toolbar">
+        <button id="btn-export">📄 Export PDF</button>
+    </div>
+
+    <div class="tabs">
+        <button class="active" data-page="1">หน้า 1 (ภายนอก)</button>
+        <button data-page="2">หน้า 2 (ภายใน)</button>
+    </div>
+
+    <!-- ========== หน้า 1 ========== -->
+    <div class="page-wrapper active" id="page1">
+        <canvas class="pdf-bg" id="canvas1"></canvas>
+
+        <input class="field" id="p1_rean" style="top:290px; left:145px; width:255px;"
+            placeholder="ชื่อผู้รับ / ตำแหน่ง">
+
+        <div class="field strike-group"
+     data-page="1"
+     style="top:320px; left:355px;">
+
+            <span class="strike-item">นาย</span> /
+            <span class="strike-item">นาง</span> /
+            <span class="strike-item">นางสาว</span>
+
+        </div>
+
+        <input class="field" id="p1_name" style="top:335px; left:475px; width:170px;" placeholder="ชื่อ-นามสกุล">
+        <input class="field" id="p1_course" style="top:360px; left:275px;  width:130px;" placeholder="ชื่อหลักสูตร">
+        <input class="field" id="p1_major" style="top:360px; left:470px; width:180px;" placeholder="สาขาวิชา">
+        <input class="field" id="p1_term" style="top:385px; left:194px;  width:70px;" placeholder="ปกติ/พิเศษ">
+        <textarea id="p1_thesis_value" style="display:none;"></textarea>
+
+        <div class="field fake-input" id="p1_thesis1" style="top:385px; left:475px; width:172px; height:24px;" data-placeholder="กรอกรายละเอียด"
+            contenteditable="true"></div>
+
+        <div class="field fake-input" id="p1_thesis2" style="top:410px; left:100px; width:450px; height:24px;"
+            contenteditable="true"></div>
+
+        <div class="field fake-input" id="p1_thesis3" style="top:435px; left:100px; width:290px; height:24px;"
+            contenteditable="true"></div>
+        <input class="field" id="p1_chair" style="top:480px; left:225px; width:315px;" placeholder="ชื่อประธานกรรมการ">
+        <input class="field" id="p1_com1" style="top:505px; left:225px; width:315px;" placeholder="ชื่อกรรมการ">
+        <input class="field" id="p1_com2" style="top:530px; left:225px; width:315px;" placeholder="ชื่อกรรมการ">
+
+        <textarea id="p2_req_value" style="display:none;"></textarea>
+        <div class="field fake-input" id="p2_req_line1"
+            style="top:575px; left:335px; width:283px; height:24px; line-height:24px; cursor:text;" data-placeholder="กรอกรายละเอียด"
+            contenteditable="true"></div>
+
+        <div class="field fake-input" id="p2_req_line2"
+            style="top:600px; left:100px; width:450px; height:24px; line-height:24px; cursor:text;"
+            contenteditable="true"></div>
+
+
+    </div>
+    <!-- ========== หน้า 2 ========== -->
+    <div class="page-wrapper" id="page2">
+        <canvas class="pdf-bg" id="canvas2"></canvas>
+
+        <input class="field" id="p2_date" style="top:178px; left:370px; width:150px;" placeholder="วันที่">
+        <input class="field" id="p2_rean" style="top:248px; left:150px;  width:125px;"
+            placeholder="ชื่อผู้รับ / ตำแหน่ง">
+        <div class="field strike-group"
+     data-page="2"
+     style="top:275px; left:185px;">
+
+            <span class="strike-item">นาย</span> /
+            <span class="strike-item">นาง</span> /
+            <span class="strike-item">นางสาว</span>
+
+        </div>
+        <input class="field" id="p2_name" style="top:295px; left:300px;  width:150px;" placeholder="ชื่อ-นามสกุล">
+        <input class="field" id="p2_course" style="top:320px; left:100px;  width:150px;" placeholder="ชื่อหลักสูตร">
+        <input class="field" id="p2_major" style="top:320px; left:370px; width:320px;" placeholder="สาขาวิชา">
+        <input class="field" id="p2_year" style="top:344px; left:138px;  width:30px;" placeholder="ปีที่">
+        <input class="field" id="p2_term" style="top:344px; left:268px; width:70px;" placeholder="ปกติ/พิเศษ">
+        <textarea id="p2_thesis_value" style="display:none;"></textarea>
+
+        <div class="field fake-input" id="p2_thesis1" data-placeholder="กรอกรายละเอียด"
+            style="top:344px; left:550px; width:120px; height:24px; line-height:24px; cursor:text;"
+            contenteditable="true"></div>
+
+        <div class="field fake-input" id="p2_thesis2"
+            style="top:364px; left:100px; width:465px; height:24px; line-height:24px; cursor:text;"
+            contenteditable="true"></div>
+
+        <div class="field fake-input" id="p2_thesis3"
+            style="top:384px; left:100px; width:400px; height:24px; line-height:24px; cursor:text;"
+            contenteditable="true"></div>
+        <input class="field" id="p2_chair" style="top:430px; left:205px;  width:310px;" placeholder="ชื่อประธานกรรมการ">
+        <input class="field" id="p2_com1" style="top:458px; left:205px;  width:310px;" placeholder="ชื่อกรรมการ">
+        <input class="field" id="p2_com2" style="top:481px; left:205px;  width:310px;" placeholder="ชื่อกรรมการ">
+
+        <textarea id="p1_note_value" style="display:none;"></textarea>
+
+        <div class="field fake-input" id="p1_note_line1" data-placeholder="กรอกรายละเอียด"
+            style="top:532px; left:240px; width:345px; height:24px; line-height:24px; cursor:text;"
+            contenteditable="true"></div>
+
+        <div class="field fake-input" id="p1_note_line2"
+            style="top:555px; left:100px; width:365px; height:24px; line-height:24px; cursor:text;"
+            contenteditable="true">
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
